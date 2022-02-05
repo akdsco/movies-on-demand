@@ -1,23 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import SearchFilters from "../../components/SearchFilter";
-import MovieList from "../../components/MovieList";
+import { SearchFilters, MovieList } from "../../components";
+import { MoviePropsType } from "../../lib/domain";
 // import * as colors from "../../colors";
 // import * as fetcher from "../../fetcher";
-
-export type RatingOptionsType = { id: number; name: number };
-export type LanguageOptionsType = { id: string; name: string };
-
-type MoviePropsType = {
-  //TODO adjust props type once you start implementing (setting string for now)
-  keyword: string;
-  year: number;
-  results: object[] | string[];
-  totalCount: number;
-  genreOptions: string[];
-  ratingOptions: RatingOptionsType[];
-  languageOptions: LanguageOptionsType[];
-};
 
 const initState: MoviePropsType = {
   keyword: "",
@@ -41,7 +27,7 @@ const initState: MoviePropsType = {
   ],
 };
 
-const Discover: React.FC = (props) => {
+export const Discover: React.FC = (props) => {
   const [state, setState] = React.useState(initState);
 
   // TODO Write a function to preload the popular movies when page loads & get the movie genres
@@ -89,5 +75,3 @@ const MovieResults = styled.div``;
 const MovieFilters = styled.div``;
 
 const MobilePageTitle = styled.header``;
-
-export default Discover;

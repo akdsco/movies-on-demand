@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const MovieItem: React.FC = () => {
+export const MovieItem: React.FC = () => {
   return (
     // TODO Complete the MovieItem component
     <MovieItemWrapper>
@@ -24,5 +24,3 @@ const LeftCont = styled.div`
 const RightCont = styled.div`
   display: inline-block;
 `;
-
-export default MovieItem;

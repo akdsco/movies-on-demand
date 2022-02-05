@@ -5,7 +5,7 @@ import * as colors from "../../colors";
 import Arrow from "../../images/arrow-icon.png";
 import SearchWhite from "../../images/search-icon-white.png";
 
-const SideNavBar: React.FC = () => {
+export const SideNavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   /* TODO Write the necessary functions to show and hide the sidebar on small devices */
 
@@ -77,5 +77,3 @@ const HeaderText = styled.div``;
 const NavLink = styled(Link)`
   display: block;
 `;
-
-export default SideNavBar;

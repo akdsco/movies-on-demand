@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { LanguageOptionsType, RatingOptionsType } from "../../pages/Discover";
+import { LanguageOptionsType, RatingOptionsType } from "../../lib/domain";
 // import * as colors from "../../colors";
 // import ExpandableFilter from "../../components/expandablefilter";
 // import SearchBar from "../../components/searchbar";
@@ -12,7 +12,7 @@ type SearchFilterPropsType = {
   searchMovies: (keyword: string, year: string) => void;
 };
 
-const SearchFilters: React.FC<SearchFilterPropsType> = ({
+export const SearchFilters: React.FC<SearchFilterPropsType> = ({
   genres,
   ratings,
   languages,
@@ -49,5 +49,3 @@ const SearchFiltersCont = styled.div<{ marginBottom?: boolean }>`
 `;
 
 const CategoryTitle = styled.div``;
-
-export default SearchFilters;

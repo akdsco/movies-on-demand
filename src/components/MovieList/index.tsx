@@ -8,7 +8,7 @@ type MovieListPropsType = {
   genres: string[];
 };
 
-const MovieList: React.FC<MovieListPropsType> = ({ movies, genres }) => {
+export const MovieList: React.FC<MovieListPropsType> = ({ movies, genres }) => {
   return (
     <MoviesWrapper>
       {/*TODO Finish the MovieItem component and use it here to display the movie results */}
@@ -19,5 +19,3 @@ const MovieList: React.FC<MovieListPropsType> = ({ movies, genres }) => {
 const MoviesWrapper = styled.div`
   position: relative;
 `;
-
-export default MovieList;

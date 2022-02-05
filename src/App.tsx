@@ -1,8 +1,8 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import SideNavBar from "./components/SideNavBar";
-import Discover from "./pages/Discover";
+import { Routes, Route } from "react-router-dom";
+import { SideNavBar } from "./components";
+import { DiscoverPage } from "./pages";
 import "./css/global-style.css";
 
 const App: React.FC = (props) => {
@@ -11,7 +11,7 @@ const App: React.FC = (props) => {
       <SideNavBar {...props} />
       <ContentWrapper>
         <Routes>
-          <Route path="/discover" element={<Discover {...props} />} />
+          <Route path="/discover" element={<DiscoverPage {...props} />} />
         </Routes>
       </ContentWrapper>
     </PageContainer>
