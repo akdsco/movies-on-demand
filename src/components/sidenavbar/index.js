@@ -3,11 +3,16 @@ import styled from 'styled-components';
 import { NavLink as Link } from "react-router-dom";
 
 import * as colors from "../../colors";
-// import Arrow from "../../images/arrow-icon.png";
-// import SearchWhite from "../../images/search-icon-white.png";
+import Arrow from "../../images/arrow-icon.png";
+import SearchWhite from "../../images/search-icon-white.png";
 
 export default class SideNavBar extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    }
+  }
   /* Write the necessary functions to show and hide the sidebar on small devices */
 
   render () {
@@ -15,14 +20,14 @@ export default class SideNavBar extends React.Component {
 
     return (
       <SideNavBarCont className={isOpen ? 'visible' : ''}>
-        {/* Implement a hamburger icon slide in effect for small devices */}
-        <SideNavMainLink className="menu_nav_link main_nav_link" to="/" exact>
+         Implement a hamburger icon slide in effect for small devices
+        <SideNavMainLink className="menu_nav_link main_nav_link" to="/" exact={true}>
           Wesley
-          <NavIcon arrow></NavIcon>
+          <NavIcon arrow><img src={Arrow} alt="arrow icon"/></NavIcon>
         </SideNavMainLink>
         <SideNavMainLink className="menu_nav_link" to="/discover">
           Discover
-          <NavIcon search></NavIcon>
+          <NavIcon search><img src={SearchWhite} alt="magnifier icon" /></NavIcon>
         </SideNavMainLink>
         <SideNavHeader><HeaderText>Watched</HeaderText></SideNavHeader>
         <NavLink className="menu_nav_link" to="/watched/movies">Movies</NavLink>

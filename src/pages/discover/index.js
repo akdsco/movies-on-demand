@@ -45,16 +45,16 @@ export default class Discover extends React.Component {
       <DiscoverWrapper>
         <MobilePageTitle>Discover</MobilePageTitle> {/* MobilePageTitle should become visible on small screens & mobile devices*/}
         <MovieFilters>
-          <SearchFilters 
-            genres={genreOptions} 
-            ratings={ratingOptions}  
+          <SearchFilters
+            genres={genreOptions}
+            ratings={ratingOptions}
             languages={languageOptions}
             searchMovies={(keyword, year) => this.searchMovies(keyword, year)}
           />
         </MovieFilters>
         <MovieResults>
           { totalCount > 0 && <TotalCounter>{totalCount} results</TotalCounter>}
-          <MovieList 
+          <MovieList
             movies={results || []}
             genres={genreOptions || []}
           />
