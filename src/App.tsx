@@ -5,20 +5,18 @@ import SideNavBar from "./components/sidenavbar";
 import Discover from "./pages/discover";
 import "./css/global-style.css";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <PageContainer>
-        <SideNavBar {...this.props} />
-        <ContentWrapper>
-          <Routes>
-            <Route path="/discover" component={Discover} {...this.props} />
-          </Routes>
-        </ContentWrapper>
-      </PageContainer>
-    );
-  }
-}
+export const App: React.FC = (props) => {
+  return (
+    <PageContainer>
+      <SideNavBar {...props} />
+      <ContentWrapper>
+        <Routes>
+          <Route path="/discover" element={<Discover {...props} />} />
+        </Routes>
+      </ContentWrapper>
+    </PageContainer>
+  );
+};
 
 const ContentWrapper = styled.main`
   padding-left: 280px;

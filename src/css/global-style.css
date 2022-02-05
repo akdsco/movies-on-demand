@@ -5,15 +5,12 @@ body {
   background-color: #f6f7f9;
   color: #404e5f;
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 a {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 input,
 textarea {
   font-family: "Lato", sans-serif;
-  background-color: transparent;
-}
+  background-color: transparent; }
