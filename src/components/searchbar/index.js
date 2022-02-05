@@ -5,6 +5,4 @@ import React from "react";
 // import SearchIcon from "../../images/search-icon-yellow.png";
 // import CalendarIcon from "../../images/year-icon.png";
 
-export default class SearchBar extends React.Component {
-
-}
+export default class SearchBar extends React.Component {}

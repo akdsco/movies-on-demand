@@ -4,11 +4,11 @@ import React from "react";
 // import Checkbox from "../checkbox";
 
 export default class ExpandableFilter extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
-      filtersShown: false
+      filtersShown: false,
     };
   }
 
