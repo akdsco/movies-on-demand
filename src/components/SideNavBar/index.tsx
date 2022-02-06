@@ -49,7 +49,12 @@ const SideNavBarCont = styled.nav`
   width: ${({ theme }) => theme.constants.sidebarWidth}px;
   height: 100%;
   padding-top: 10px;
+  transition: all ${({ theme }) => theme.duration.short}ms;
   background-color: ${({ theme }) => theme.palette.sideNavBar};
+
+  @media only screen and (max-width: ${({ theme }) => theme.breakpoints.lg}px) {
+    transform: translateX(-100%);
+  }
 `;
 
 const SideNavMainLinkCont = styled.div`

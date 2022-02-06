@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchFilters, MovieList, PageWrapper } from "../../components";
+import {
+  SearchFilters,
+  MovieList,
+  PageWrapper,
+  PageMainSection,
+  MobilePageTitle,
+} from "../../components";
 import { MoviePropsType } from "../../lib/domain";
-// import * as colors from "../../colors";
 // import * as fetcher from "../../fetcher";
 
 const initState: MoviePropsType = {
@@ -42,22 +47,24 @@ export const Discover: React.FC = () => {
 
   return (
     <PageWrapper>
-      <MobilePageTitle>Discover</MobilePageTitle>{" "}
+      <MobilePageTitle>"Hamburger icon here" Discover</MobilePageTitle>{" "}
       {/* TODO MobilePageTitle should become visible on small screens & mobile devices*/}
-      <MovieFilters>
-        <SearchFilters
-          genres={genreOptions}
-          ratings={ratingOptions}
-          languages={languageOptions}
-          searchMovies={(keyword: string, year: string): void =>
-            searchMovies(keyword, year)
-          }
-        />
-      </MovieFilters>
-      <MovieResults>
-        {totalCount > 0 && <TotalCounter>{totalCount} results</TotalCounter>}
-        <MovieList movies={results || []} genres={genreOptions || []} />
-      </MovieResults>
+      <PageMainSection>
+        <MovieFilters>
+          <SearchFilters
+            genres={genreOptions}
+            ratings={ratingOptions}
+            languages={languageOptions}
+            searchMovies={(keyword: string, year: string): void =>
+              searchMovies(keyword, year)
+            }
+          />
+        </MovieFilters>
+        <MovieResults>
+          {totalCount > 0 && <TotalCounter>{totalCount} results</TotalCounter>}
+          <MovieList movies={results || []} genres={genreOptions || []} />
+        </MovieResults>
+      </PageMainSection>
     </PageWrapper>
   );
 };
@@ -69,5 +76,3 @@ const TotalCounter = styled.div`
 const MovieResults = styled.div``;
 
 const MovieFilters = styled.div``;
-
-const MobilePageTitle = styled.header``;

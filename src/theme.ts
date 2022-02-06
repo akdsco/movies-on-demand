@@ -19,4 +19,9 @@ export const theme = {
   constants: {
     sidebarWidth: 260,
   },
+  breakpoints: {
+    sm: 600,
+    md: 900,
+    lg: 1200,
+  },
 };

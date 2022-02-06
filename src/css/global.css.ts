@@ -21,6 +21,10 @@ export const GlobalCSS = createGlobalStyle<any>`
     font-family: "Lato", sans-serif;
     background-color: transparent;
   }
+  
+  #root {
+    overflow-x: hidden;
+  }
 
   .menu_nav_link.active {
     background-color: ${({ theme }) => theme.palette.primaryActive};

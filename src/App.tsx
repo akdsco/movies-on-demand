@@ -10,46 +10,42 @@ const App: React.FC = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalCSS />
-      <PageContainer>
-        <SideNavBar {...props} />
-        <ContentWrapper>
-          <Routes>
-            <Route
-              path="/"
-              element={<ComingSoonPage {...props} pageName="Main page" />}
-            />
-            <Route path="/discover" element={<DiscoverPage {...props} />} />
-            <Route
-              path="/saved/movies"
-              element={<ComingSoonPage {...props} pageName="Saved movies" />}
-            />
-            <Route
-              path="/saved/tv-shows"
-              element={<ComingSoonPage {...props} pageName="Saved TV Shows" />}
-            />
-            <Route
-              path="/watched/movies"
-              element={<ComingSoonPage {...props} pageName="Watched movies" />}
-            />
-            <Route
-              path="/watched/tv-shows"
-              element={
-                <ComingSoonPage {...props} pageName="Watched TV Shows" />
-              }
-            />
-          </Routes>
-        </ContentWrapper>
-      </PageContainer>
+      <SideNavBar {...props} />
+      <ContentWrapper>
+        <Routes>
+          <Route
+            path="/"
+            element={<ComingSoonPage {...props} pageName="Main page" />}
+          />
+          <Route path="/discover" element={<DiscoverPage {...props} />} />
+          <Route
+            path="/saved/movies"
+            element={<ComingSoonPage {...props} pageName="Saved movies" />}
+          />
+          <Route
+            path="/saved/tv-shows"
+            element={<ComingSoonPage {...props} pageName="Saved TV Shows" />}
+          />
+          <Route
+            path="/watched/movies"
+            element={<ComingSoonPage {...props} pageName="Watched movies" />}
+          />
+          <Route
+            path="/watched/tv-shows"
+            element={<ComingSoonPage {...props} pageName="Watched TV Shows" />}
+          />
+        </Routes>
+      </ContentWrapper>
     </ThemeProvider>
   );
 };
 
-const ContentWrapper = styled.main`
+const ContentWrapper = styled.div`
   padding-left: ${({ theme }) => theme.constants.sidebarWidth}px;
-`;
 
-const PageContainer = styled.div`
-  overflow-x: hidden;
+  @media only screen and (max-width: ${({ theme }) => theme.breakpoints.lg}px) {
+    padding-left: unset;
+  }
 `;
 
 export default App;
