@@ -3,12 +3,13 @@ import styled, { ThemeProvider } from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import { SideNavBar } from "./components";
 import { DiscoverPage, ComingSoonPage } from "./pages";
-import { theme } from "./colors";
-import "./css/global-style.css";
+import { theme } from "./theme";
+import { GlobalCSS } from "./css/global.css";
 
 const App: React.FC = (props) => {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalCSS />
       <PageContainer>
         <SideNavBar {...props} />
         <ContentWrapper>
@@ -44,7 +45,7 @@ const App: React.FC = (props) => {
 };
 
 const ContentWrapper = styled.main`
-  padding-left: 260px;
+  padding-left: ${({ theme }) => theme.constants.sidebarWidth}px;
 `;
 
 const PageContainer = styled.div`

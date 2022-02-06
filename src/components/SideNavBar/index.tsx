@@ -6,44 +6,38 @@ import SearchWhite from "../../images/search-icon-white.png";
 
 export const SideNavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  // TODO implement active menu item
-  // const [activeMenuItem, setActiveMenuItem] = React.useState("");
   /* TODO Write the necessary functions to show and hide the sidebar on small devices */
 
   return (
     <SideNavBarCont className={isOpen ? "visible" : ""}>
       {/*TODO Implement a hamburger icon slide in effect for small devices*/}
       <SideNavMainLinkCont>
-        <SideNavMainLink
-          className="menu_nav_link main_nav_link"
-          to="/"
-          active={false}
-        >
+        <PrimaryNavLink className="menu_nav_link" to="/">
           Wesley
           <NavIcon src={Arrow} alt="arrow icon" />
-        </SideNavMainLink>
-        <SideNavMainLink className="menu_nav_link" to="/discover" active={true}>
+        </PrimaryNavLink>
+        <PrimaryNavLink className="menu_nav_link" to="/discover">
           Discover
           <NavIcon src={SearchWhite} alt="magnifier icon" />
-        </SideNavMainLink>
+        </PrimaryNavLink>
       </SideNavMainLinkCont>
       <SideNavSubMenu>
-        <HeaderText>Watched</HeaderText>
-        <NavLink className="menu_nav_link" to="/watched/movies">
+        <SubMenuHeader>Watched</SubMenuHeader>
+        <SecondaryNavLink className="menu_nav_link" to="/watched/movies">
           Movies
-        </NavLink>
-        <NavLink className="menu_nav_link" to="/watched/tv-shows">
+        </SecondaryNavLink>
+        <SecondaryNavLink className="menu_nav_link" to="/watched/tv-shows">
           Tv Shows
-        </NavLink>
+        </SecondaryNavLink>
       </SideNavSubMenu>
       <SideNavSubMenu>
-        <HeaderText>Saved</HeaderText>
-        <NavLink className="menu_nav_link" to="/saved/movies">
+        <SubMenuHeader>Saved</SubMenuHeader>
+        <SecondaryNavLink className="menu_nav_link" to="/saved/movies">
           Movies
-        </NavLink>
-        <NavLink className="menu_nav_link" to="/saved/tv-shows">
+        </SecondaryNavLink>
+        <SecondaryNavLink className="menu_nav_link" to="/saved/tv-shows">
           Tv Shows
-        </NavLink>
+        </SecondaryNavLink>
       </SideNavSubMenu>
     </SideNavBarCont>
   );
@@ -52,7 +46,7 @@ export const SideNavBar: React.FC = () => {
 const SideNavBarCont = styled.nav`
   position: fixed;
   z-index: 9;
-  width: 260px;
+  width: ${({ theme }) => theme.constants.sidebarWidth}px;
   height: 100%;
   padding-top: 10px;
   background-color: ${({ theme }) => theme.palette.sideNavBar};
@@ -62,17 +56,23 @@ const SideNavMainLinkCont = styled.div`
   padding-bottom: 10px;
 `;
 
-const SideNavMainLink = styled(Link)<{ active: boolean }>`
-  position: relative;
+const BaseNavLink = styled(Link)`
+  color: ${({ theme }) => theme.palette.white};
+`;
+
+const PrimaryNavLink = styled(BaseNavLink)`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 23px 35px;
   font-size: 1.6em;
   font-weight: 700;
-  background-color: ${({ active, theme }) =>
-    active ? theme.palette.primaryColor : "unset"};
-  color: ${({ theme }) => theme.palette.white};
+`;
+
+const SecondaryNavLink = styled(BaseNavLink)`
+  display: block;
+  font-size: 0.75em;
+  padding: 10px 0;
 `;
 
 const NavIcon = styled.img``;
@@ -84,14 +84,7 @@ const SideNavSubMenu = styled.div`
   margin-bottom: 35px;
 `;
 
-const HeaderText = styled.div`
+const SubMenuHeader = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.palette.fontColor};
   padding: 15px 0;
-`;
-
-const NavLink = styled(Link)`
-  display: block;
-  font-size: 0.75em;
-  padding: 10px 0;
-  color: ${({ theme }) => theme.palette.white};
 `;
