@@ -1,79 +1,97 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
-import * as colors from "../../colors";
 import Arrow from "../../images/arrow-icon.png";
 import SearchWhite from "../../images/search-icon-white.png";
 
 export const SideNavBar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  // TODO implement active menu item
+  // const [activeMenuItem, setActiveMenuItem] = React.useState("");
   /* TODO Write the necessary functions to show and hide the sidebar on small devices */
 
   return (
     <SideNavBarCont className={isOpen ? "visible" : ""}>
-      Implement a hamburger icon slide in effect for small devices
-      <SideNavMainLink className="menu_nav_link main_nav_link" to="/">
-        Wesley
-        <NavIcon arrow>
-          <img src={Arrow} alt="arrow icon" />
-        </NavIcon>
-      </SideNavMainLink>
-      <SideNavMainLink className="menu_nav_link" to="/discover">
-        Discover
-        <NavIcon search>
-          <img src={SearchWhite} alt="magnifier icon" />
-        </NavIcon>
-      </SideNavMainLink>
-      <SideNavHeader>
+      {/*TODO Implement a hamburger icon slide in effect for small devices*/}
+      <SideNavMainLinkCont>
+        <SideNavMainLink
+          className="menu_nav_link main_nav_link"
+          to="/"
+          active={false}
+        >
+          Wesley
+          <NavIcon src={Arrow} alt="arrow icon" />
+        </SideNavMainLink>
+        <SideNavMainLink className="menu_nav_link" to="/discover" active={true}>
+          Discover
+          <NavIcon src={SearchWhite} alt="magnifier icon" />
+        </SideNavMainLink>
+      </SideNavMainLinkCont>
+      <SideNavSubMenu>
         <HeaderText>Watched</HeaderText>
-      </SideNavHeader>
-      <NavLink className="menu_nav_link" to="/watched/movies">
-        Movies
-      </NavLink>
-      <NavLink className="menu_nav_link" to="/watched/tv-shows">
-        Tv Shows
-      </NavLink>
-      <SideNavHeader>
+        <NavLink className="menu_nav_link" to="/watched/movies">
+          Movies
+        </NavLink>
+        <NavLink className="menu_nav_link" to="/watched/tv-shows">
+          Tv Shows
+        </NavLink>
+      </SideNavSubMenu>
+      <SideNavSubMenu>
         <HeaderText>Saved</HeaderText>
-      </SideNavHeader>
-      <NavLink className="menu_nav_link" to="/saved/movies">
-        Movies
-      </NavLink>
-      <NavLink className="menu_nav_link" to="/saved/tv-shows">
-        Tv Shows
-      </NavLink>
+        <NavLink className="menu_nav_link" to="/saved/movies">
+          Movies
+        </NavLink>
+        <NavLink className="menu_nav_link" to="/saved/tv-shows">
+          Tv Shows
+        </NavLink>
+      </SideNavSubMenu>
     </SideNavBarCont>
   );
 };
 
-const SideNavBarCont = styled.div`
+const SideNavBarCont = styled.nav`
   position: fixed;
   z-index: 9;
-  width: 280px;
+  width: 260px;
   height: 100%;
-  background-color: ${colors.sideNavBar};
+  padding-top: 10px;
+  background-color: ${({ theme }) => theme.palette.sideNavBar};
 `;
 
-const SideNavMainLink = styled(Link)`
+const SideNavMainLinkCont = styled.div`
+  padding-bottom: 10px;
+`;
+
+const SideNavMainLink = styled(Link)<{ active: boolean }>`
   position: relative;
-  display: block;
-  padding: 25px 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 23px 35px;
   font-size: 1.6em;
   font-weight: 700;
-  color: white;
+  background-color: ${({ active, theme }) =>
+    active ? theme.palette.primaryColor : "unset"};
+  color: ${({ theme }) => theme.palette.white};
 `;
 
-// TODO improve types here, arbitrary for now
-const NavIcon = styled.div<{ search?: boolean; arrow?: boolean }>`
-  position: absolute;
-  right: 35px;
-  top: 50%;
+const NavIcon = styled.img``;
+
+const SideNavSubMenu = styled.div`
+  font-size: 1.6em;
+  margin-left: 35px;
+  color: ${({ theme }) => theme.palette.white};
+  margin-bottom: 35px;
 `;
 
-const SideNavHeader = styled.div``;
-
-const HeaderText = styled.div``;
+const HeaderText = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.palette.fontColor};
+  padding: 15px 0;
+`;
 
 const NavLink = styled(Link)`
   display: block;
+  font-size: 0.75em;
+  padding: 10px 0;
+  color: ${({ theme }) => theme.palette.white};
 `;

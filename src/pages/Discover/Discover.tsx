@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchFilters, MovieList } from "../../components";
+import { SearchFilters, MovieList, PageWrapper } from "../../components";
 import { MoviePropsType } from "../../lib/domain";
 // import * as colors from "../../colors";
 // import * as fetcher from "../../fetcher";
@@ -27,7 +27,7 @@ const initState: MoviePropsType = {
   ],
 };
 
-export const Discover: React.FC = (props) => {
+export const Discover: React.FC = () => {
   const [state, setState] = React.useState(initState);
 
   // TODO Write a function to preload the popular movies when page loads & get the movie genres
@@ -41,7 +41,7 @@ export const Discover: React.FC = (props) => {
     state;
 
   return (
-    <DiscoverWrapper>
+    <PageWrapper>
       <MobilePageTitle>Discover</MobilePageTitle>{" "}
       {/* TODO MobilePageTitle should become visible on small screens & mobile devices*/}
       <MovieFilters>
@@ -58,13 +58,9 @@ export const Discover: React.FC = (props) => {
         {totalCount > 0 && <TotalCounter>{totalCount} results</TotalCounter>}
         <MovieList movies={results || []} genres={genreOptions || []} />
       </MovieResults>
-    </DiscoverWrapper>
+    </PageWrapper>
   );
 };
-
-const DiscoverWrapper = styled.main`
-  padding: 60px 35px;
-`;
 
 const TotalCounter = styled.div`
   font-weight: 900;
