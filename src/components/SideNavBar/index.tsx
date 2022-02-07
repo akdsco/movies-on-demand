@@ -13,6 +13,11 @@ export const SideNavBar: React.FC<{
 
   return (
     <SideNavBarCont className={navMenuOpen ? "visible" : ""}>
+      {navMenuOpen && (
+        <button onClick={closeNavMenu} className="close-menu-btn">
+          X
+        </button>
+      )}
       <SideNavMainLinkCont>
         <PrimaryNavLink onClick={closeNavMenu} className="menu_nav_link" to="/">
           Wesley
@@ -76,6 +81,28 @@ const SideNavBarCont = styled.nav`
 
   &.visible {
     transform: translateX(0);
+  }
+
+  .close-menu-btn {
+    border-style: unset;
+    //border-top-right-radius: 50%;
+    //border-bottom-right-radius: 50%;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    color: ${({ theme }) => theme.palette.white};
+    background-color: ${({ theme }) => theme.palette.sideNavBar};
+    transition: all ${({ theme }) => theme.duration.short}ms;
+
+    &:hover {
+      cursor: pointer;
+      background-color: ${({ theme }) => theme.palette.sideNavBarHover};
+      border: 2px solid white;
+      border-radius: 50%;
+    }
   }
 
   @media only screen and (max-width: ${({ theme }) => theme.breakpoints.lg}px) {
