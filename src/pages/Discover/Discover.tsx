@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import {
   SearchFilters,
-  MovieList,
   PageWrapper,
   PageMainSection,
   MobilePageTitle,
 } from "../../components";
+import { MovieList } from "../../containers";
 import { DiscoverPagePropsType } from "../../lib/domain";
 // import * as fetcher from "../../fetcher";
 
@@ -18,7 +18,11 @@ const initState: DiscoverPagePropsType = {
       id: "tt0137523",
       original_title: "Fight Club",
       vote_average: 8.4,
-      genres: [{ id: 18, name: "Drama" }],
+      genres: [
+        { id: 18, name: "Drama" },
+        { id: 3, name: "Comedy" },
+        { id: 3, name: "Another" },
+      ],
       overview:
         'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.',
       poster_path: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",

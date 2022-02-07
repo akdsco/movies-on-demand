@@ -15,7 +15,6 @@ export const MovieList: React.FC<MovieListPropsType> = ({ movies, genres }) => {
       {movies.map((movie) => {
         return <MovieItem key={movie.id} {...movie} />;
       })}
-      {/*TODO Finish the MovieItem component and use it here to display the movie results */}
     </MoviesWrapper>
   );
 };
