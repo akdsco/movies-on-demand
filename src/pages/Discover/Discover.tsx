@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import {
-  SearchFilters,
   PageWrapper,
   PageMainSection,
   MobilePageTitle,
 } from "../../components";
-import { MovieList } from "../../containers";
+import { MovieList, SearchFilters } from "../../containers";
 import { DiscoverPagePropsType } from "../../lib/domain";
 // import * as fetcher from "../../fetcher";
 
