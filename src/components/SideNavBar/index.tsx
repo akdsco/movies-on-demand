@@ -85,8 +85,6 @@ const SideNavBarCont = styled.nav`
 
   .close-menu-btn {
     border-style: unset;
-    //border-top-right-radius: 50%;
-    //border-bottom-right-radius: 50%;
     position: absolute;
     top: 4px;
     right: 4px;
@@ -130,14 +128,25 @@ const PrimaryNavLink = styled(BaseNavLink)`
 const SecondaryNavLink = styled(BaseNavLink)`
   display: block;
   font-size: 0.75em;
-  padding: 10px 0;
+  padding: 10px 0 10px 20px;
+  border-top-left-radius: 22px;
+  border-bottom-left-radius: 22px;
+  &:before {
+    content: "";
+    position: absolute;
+    background-color: ${({ theme }) => theme.palette.sideNavBar};
+    left: 3px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
 `;
 
 const NavIcon = styled.img``;
 
 const SideNavSubMenu = styled.div`
   font-size: 1.6em;
-  margin-left: 35px;
+  margin-left: 15px;
   color: ${({ theme }) => theme.palette.white};
   margin-bottom: 35px;
 `;
@@ -145,4 +154,5 @@ const SideNavSubMenu = styled.div`
 const SubMenuHeader = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.palette.fontColor};
   padding: 15px 0;
+  margin-left: 20px;
 `;
