@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Routes, Route } from "react-router-dom";
-import { SideNavBar } from "./components";
+import { SideNavBar } from "./containers";
 import { DiscoverPage, ComingSoonPage } from "./pages";
 import { theme } from "./theme";
 import { GlobalCSS } from "./css/global.css";
