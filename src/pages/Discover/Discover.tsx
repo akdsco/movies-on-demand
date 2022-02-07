@@ -7,14 +7,24 @@ import {
   PageMainSection,
   MobilePageTitle,
 } from "../../components";
-import { MoviePropsType } from "../../lib/domain";
+import { DiscoverPagePropsType } from "../../lib/domain";
 // import * as fetcher from "../../fetcher";
 
-const initState: MoviePropsType = {
+const initState: DiscoverPagePropsType = {
   keyword: "",
   year: 0,
-  results: [],
-  totalCount: 0,
+  results: [
+    {
+      id: "tt0137523",
+      original_title: "Fight Club",
+      vote_average: 8.4,
+      genres: [{ id: 18, name: "Drama" }],
+      overview:
+        'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.',
+      poster_path: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+    },
+  ],
+  totalCount: 1,
   genreOptions: [],
   ratingOptions: [
     { id: 7.5, name: 7.5 },
@@ -62,8 +72,8 @@ export const Discover: React.FC<{
           />
         </MovieFilters>
         <MovieResults>
-          {totalCount > 0 && <TotalCounter>{totalCount} results</TotalCounter>}
-          <MovieList movies={results || []} genres={genreOptions || []} />
+          {totalCount >= 0 && <TotalCounter>{totalCount} movies</TotalCounter>}
+          <MovieList movies={results} genres={genreOptions || []} />
         </MovieResults>
       </PageMainSection>
     </PageWrapper>
@@ -71,9 +81,12 @@ export const Discover: React.FC<{
 };
 
 const TotalCounter = styled.div`
-  font-weight: 900;
+  font-weight: 400;
+  margin-bottom: 10px;
 `;
 
-const MovieResults = styled.div``;
+const MovieResults = styled.div`
+  margin-top: 40px;
+`;
 
 const MovieFilters = styled.div``;
