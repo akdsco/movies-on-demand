@@ -1,6 +1,14 @@
 import React from "react";
-import { PageWrapper } from "../../components";
+import { MobilePageTitle, PageWrapper } from "../../components";
 
-export const ComingSoon: React.FC<{ pageName: string }> = ({ pageName }) => {
-  return <PageWrapper>{pageName} coming soon</PageWrapper>;
+export const ComingSoon: React.FC<{
+  pageName: string;
+  setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ pageName, setNavMenuOpen }) => {
+  return (
+    <PageWrapper>
+      <MobilePageTitle title={pageName} setNavMenuOpen={setNavMenuOpen} />
+      Coming soon
+    </PageWrapper>
+  );
 };

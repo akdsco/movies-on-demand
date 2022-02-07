@@ -6,8 +6,4 @@ export const PageWrapper = styled.div`
 
 export const PageMainSection = styled.main``;
 
-export const MobilePageTitle = styled.header`
-  @media only screen and (min-width: ${({ theme }) => theme.breakpoints.lg}px) {
-    display: none;
-  }
-`;
+export { MobilePageTitle } from "./MobilePageTitle";

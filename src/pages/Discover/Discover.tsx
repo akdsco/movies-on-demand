@@ -32,7 +32,9 @@ const initState: MoviePropsType = {
   ],
 };
 
-export const Discover: React.FC = () => {
+export const Discover: React.FC<{
+  setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setNavMenuOpen }) => {
   const [state, setState] = React.useState(initState);
 
   // TODO Write a function to preload the popular movies when page loads & get the movie genres
@@ -47,8 +49,7 @@ export const Discover: React.FC = () => {
 
   return (
     <PageWrapper>
-      <MobilePageTitle>"Hamburger icon here" Discover</MobilePageTitle>{" "}
-      {/* TODO MobilePageTitle should become visible on small screens & mobile devices*/}
+      <MobilePageTitle title="Discover" setNavMenuOpen={setNavMenuOpen} />
       <PageMainSection>
         <MovieFilters>
           <SearchFilters

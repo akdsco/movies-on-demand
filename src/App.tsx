@@ -7,32 +7,73 @@ import { theme } from "./theme";
 import { GlobalCSS } from "./css/global.css";
 
 const App: React.FC = (props) => {
+  const [navMenuOpen, setNavMenuOpen] = React.useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalCSS />
-      <SideNavBar {...props} />
+      <SideNavBar
+        {...props}
+        navMenuOpen={navMenuOpen}
+        setNavMenuOpen={setNavMenuOpen}
+      />
       <ContentWrapper>
         <Routes>
           <Route
             path="/"
-            element={<ComingSoonPage {...props} pageName="Main page" />}
+            element={
+              <ComingSoonPage
+                {...props}
+                pageName="Main page"
+                setNavMenuOpen={setNavMenuOpen}
+              />
+            }
           />
-          <Route path="/discover" element={<DiscoverPage {...props} />} />
+          <Route
+            path="/discover"
+            element={
+              <DiscoverPage {...props} setNavMenuOpen={setNavMenuOpen} />
+            }
+          />
           <Route
             path="/saved/movies"
-            element={<ComingSoonPage {...props} pageName="Saved movies" />}
+            element={
+              <ComingSoonPage
+                {...props}
+                pageName="Saved movies"
+                setNavMenuOpen={setNavMenuOpen}
+              />
+            }
           />
           <Route
             path="/saved/tv-shows"
-            element={<ComingSoonPage {...props} pageName="Saved TV Shows" />}
+            element={
+              <ComingSoonPage
+                {...props}
+                pageName="Saved TV Shows"
+                setNavMenuOpen={setNavMenuOpen}
+              />
+            }
           />
           <Route
             path="/watched/movies"
-            element={<ComingSoonPage {...props} pageName="Watched movies" />}
+            element={
+              <ComingSoonPage
+                {...props}
+                pageName="Watched movies"
+                setNavMenuOpen={setNavMenuOpen}
+              />
+            }
           />
           <Route
             path="/watched/tv-shows"
-            element={<ComingSoonPage {...props} pageName="Watched TV Shows" />}
+            element={
+              <ComingSoonPage
+                {...props}
+                pageName="Watched TV Shows"
+                setNavMenuOpen={setNavMenuOpen}
+              />
+            }
           />
         </Routes>
       </ContentWrapper>

@@ -4,38 +4,60 @@ import { NavLink as Link } from "react-router-dom";
 import Arrow from "../../images/arrow-icon.png";
 import SearchWhite from "../../images/search-icon-white.png";
 
-export const SideNavBar: React.FC = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  /* TODO Write the necessary functions to show and hide the sidebar on small devices */
+export const SideNavBar: React.FC<{
+  navMenuOpen: boolean;
+  setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ navMenuOpen, setNavMenuOpen }) => {
+  // Ideally would wrap this function into a HOC but that's a nice cherry on top o have
+  const closeNavMenu = () => setNavMenuOpen(false);
 
   return (
-    <SideNavBarCont className={isOpen ? "visible" : ""}>
-      {/*TODO Implement a hamburger icon slide in effect for small devices*/}
+    <SideNavBarCont className={navMenuOpen ? "visible" : ""}>
       <SideNavMainLinkCont>
-        <PrimaryNavLink className="menu_nav_link" to="/">
+        <PrimaryNavLink onClick={closeNavMenu} className="menu_nav_link" to="/">
           Wesley
           <NavIcon src={Arrow} alt="arrow icon" />
         </PrimaryNavLink>
-        <PrimaryNavLink className="menu_nav_link" to="/discover">
+        <PrimaryNavLink
+          onClick={closeNavMenu}
+          className="menu_nav_link"
+          to="/discover"
+        >
           Discover
           <NavIcon src={SearchWhite} alt="magnifier icon" />
         </PrimaryNavLink>
       </SideNavMainLinkCont>
       <SideNavSubMenu>
         <SubMenuHeader>Watched</SubMenuHeader>
-        <SecondaryNavLink className="menu_nav_link" to="/watched/movies">
+        <SecondaryNavLink
+          onClick={closeNavMenu}
+          className="menu_nav_link"
+          to="/watched/movies"
+        >
           Movies
         </SecondaryNavLink>
-        <SecondaryNavLink className="menu_nav_link" to="/watched/tv-shows">
+        <SecondaryNavLink
+          onClick={closeNavMenu}
+          className="menu_nav_link"
+          to="/watched/tv-shows"
+        >
           Tv Shows
         </SecondaryNavLink>
       </SideNavSubMenu>
       <SideNavSubMenu>
         <SubMenuHeader>Saved</SubMenuHeader>
-        <SecondaryNavLink className="menu_nav_link" to="/saved/movies">
+        <SecondaryNavLink
+          onClick={closeNavMenu}
+          className="menu_nav_link"
+          to="/saved/movies"
+        >
           Movies
         </SecondaryNavLink>
-        <SecondaryNavLink className="menu_nav_link" to="/saved/tv-shows">
+        <SecondaryNavLink
+          onClick={closeNavMenu}
+          className="menu_nav_link"
+          to="/saved/tv-shows"
+        >
           Tv Shows
         </SecondaryNavLink>
       </SideNavSubMenu>
@@ -51,6 +73,10 @@ const SideNavBarCont = styled.nav`
   padding-top: 10px;
   transition: all ${({ theme }) => theme.duration.short}ms;
   background-color: ${({ theme }) => theme.palette.sideNavBar};
+
+  &.visible {
+    transform: translateX(0);
+  }
 
   @media only screen and (max-width: ${({ theme }) => theme.breakpoints.lg}px) {
     transform: translateX(-100%);
