@@ -103,7 +103,7 @@ const MovieDesc = styled.div`
   text-overflow: ellipsis;
   word-wrap: break-word;
   overflow: hidden;
-  max-height: 4em;
+  max-height: 5em;
   line-height: 1em;
   font-size: 0.9em;
   &:before {

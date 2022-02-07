@@ -19,8 +19,8 @@ const initState: DiscoverPagePropsType = {
       original_title: "Fight Club",
       vote_average: 8.4,
       genres: [
-        { id: 18, name: "Drama" },
-        { id: 3, name: "Comedy" },
+        { id: 1, name: "Drama" },
+        { id: 2, name: "Comedy" },
         { id: 3, name: "Another" },
       ],
       overview:
@@ -49,8 +49,16 @@ const initState: DiscoverPagePropsType = {
 export const Discover: React.FC<{
   setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setNavMenuOpen }) => {
-  const [state, setState] = React.useState(initState);
-
+  const [discoverState, setDiscoverState] = React.useState(initState);
+  const {
+    genreOptions,
+    languageOptions,
+    ratingOptions,
+    totalCount,
+    results,
+    keyword,
+    year,
+  } = discoverState;
   // TODO Write a function to preload the popular movies when page loads & get the movie genres
 
   // TODO Write a function to trigger the API request and load the search results based on the keyword and year given as parameters
@@ -58,21 +66,20 @@ export const Discover: React.FC<{
     console.log(keyword, year);
   };
 
-  const { genreOptions, languageOptions, ratingOptions, totalCount, results } =
-    state;
-
   return (
     <PageWrapper>
       <MobilePageTitle title="Discover" setNavMenuOpen={setNavMenuOpen} />
       <PageMainSection>
         <MovieFilters>
           <SearchFilters
+            keyword={keyword}
             genres={genreOptions}
             ratings={ratingOptions}
             languages={languageOptions}
             searchMovies={(keyword: string, year: string): void =>
               searchMovies(keyword, year)
             }
+            setDiscoverState={setDiscoverState}
           />
         </MovieFilters>
         <MovieResults>

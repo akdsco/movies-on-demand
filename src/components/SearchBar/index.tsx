@@ -1,11 +1,18 @@
 import React from "react";
-// import styled from 'styled-components';
-// import * as colors from "../../colors";
-// import SearchIcon from "../../images/search-icon-yellow.png";
-// import CalendarIcon from "../../images/year-icon.png";
+import styled from "styled-components";
 
-const SearchBar: React.FC = () => {
-  return <div>Search Bar</div>;
+export const SearchBar: React.FC<{
+  type: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  value: string | number;
+  iconSrc?: string;
+}> = ({ type, onChange, value, iconSrc }) => {
+  return (
+    <StyledInput>
+      {iconSrc && <img src={iconSrc} alt="" />}
+      <input type={type} onChange={onChange} value={value} />
+    </StyledInput>
+  );
 };
 
-export default SearchBar;
+const StyledInput = styled.div``;
