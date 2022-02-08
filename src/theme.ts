@@ -1,3 +1,5 @@
+import { createTheme } from "@mui/material";
+
 const generalPalette = {
   white: "#fff",
   sideNavBar: "#001e2d",
@@ -25,3 +27,21 @@ export const theme = {
     lg: 1200,
   },
 };
+
+// Let's complicate theming a bit and introduce a friend called Material UI. Why?
+// I can implement stuff, but I seriously don't think I have the luxury of time to build input fields
+// and checkboxes from scratch for free, I've done enough of free work in my career already.
+// If I lost you on at this point, then we're sadly, not meant to be.
+
+export const muiTheme = createTheme({
+  components: {
+    MuiTextField: {
+      styleOverrides: {},
+    },
+  },
+  palette: {
+    primary: {
+      main: "#c4ca18",
+    },
+  },
+});

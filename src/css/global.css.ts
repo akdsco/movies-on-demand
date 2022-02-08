@@ -26,6 +26,10 @@ export const GlobalCSS = createGlobalStyle<any>`
     overflow-x: hidden;
   }
 
+  .internal-icon {
+    width: 30px;
+  }
+
   .menu_nav_link.active {
     background-color: ${({ theme }) => theme.palette.primaryActive};
   }

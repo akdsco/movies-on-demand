@@ -10,6 +10,7 @@ import { SearchBar } from "../../components";
 // import ExpandableFilter from "../../components/expandablefilter";
 // import SearchBar from "../../components/searchbar";
 import SearchIcon from "../../images/search-icon-yellow.png";
+import FilterIcon from "../../images/filter-icon.png";
 // import CalendarIcon from "../../images/year-icon.png";
 
 type SearchFilterPropsType = {
@@ -34,19 +35,24 @@ export const SearchFilters: React.FC<SearchFilterPropsType> = ({
     <FiltersWrapper>
       <SearchFiltersCont className="search_inputs_cont" marginBottom>
         <SearchBar
-          type="text"
           value={keyword}
+          placeholder="Search for movies"
           onChange={(e) =>
-            setDiscoverState((state) => ({ ...state, keyword: e.target.value }))
+            setDiscoverState((state) => ({
+              ...state,
+              keyword: e.target.value,
+            }))
           }
           iconSrc={SearchIcon}
         />
-        {/*TODO Implement a "SearchBar" component and re-use it for the keyword and the year inputs */}
+        <FiltersButton>
+          <img className="internal-icon" src={FilterIcon} alt="" />
+        </FiltersButton>
       </SearchFiltersCont>
-      <SearchFiltersCont>
-        <CategoryTitle>Movies</CategoryTitle>
-        {/*TODO Implement a component called "ExpandableFilter" and apply it to all filter categories */}
-      </SearchFiltersCont>
+      {/*  /!*TODO Implement a component called "ExpandableFilter" and apply it to all filter categories *!/*/}
+      {/*<SearchFiltersCont className="movies">*/}
+      {/*  <CategoryTitle>Movies</CategoryTitle>*/}
+      {/*</SearchFiltersCont>*/}
     </FiltersWrapper>
   );
 };
@@ -60,6 +66,8 @@ const SearchFiltersCont = styled.div<{ marginBottom?: boolean }>`
   padding: 20px;
   border-radius: 3px;
   transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: space-between;
 
   ${(props) =>
     props.marginBottom &&
@@ -69,3 +77,14 @@ const SearchFiltersCont = styled.div<{ marginBottom?: boolean }>`
 `;
 
 const CategoryTitle = styled.div``;
+
+const FiltersButton = styled.button`
+  background: unset;
+  border: unset;
+  border-bottom: 2px solid ${({ theme }) => theme.palette.primaryActive};
+  margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+    border-bottom-color: ${({ theme }) => theme.palette.primaryColor};
+  }
+`;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-// @ts-ignore as there is no support for TS? :sad-face:
-import LineIcon from "react-lineicons";
+import MenuIcon from "@mui/icons-material/Menu";
+import { IconButton } from "@mui/material";
 
 type MobilePageTitleProps = {
   title: string;
@@ -14,25 +14,21 @@ export const MobilePageTitle: React.FC<MobilePageTitleProps> = ({
 }) => {
   return (
     <MobilePageTitleStyled>
-      <button className="open-menu" onClick={() => setNavMenuOpen(true)}>
-        <LineIcon name="menu" />
-      </button>
+      <IconButton onClick={() => setNavMenuOpen(true)}>
+        <MenuIcon />
+      </IconButton>
       <h1 className="mobile-header">{title}</h1>
     </MobilePageTitleStyled>
   );
 };
 
 export const MobilePageTitleStyled = styled.header`
-  .open-menu {
-    all: unset;
-    font-size: 24px;
-    transition: all ${({ theme }) => theme.duration.short}ms;
-    &:hover {
-      cursor: pointer;
-      color: ${({ theme }) => theme.palette.sideNavBar};
-    }
-  }
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
   .mobile-header {
+    margin: 0;
     font-size: 1.6em;
     display: inline-block;
     padding-left: 10px;

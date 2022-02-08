@@ -1,9 +1,10 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
 import { Routes, Route } from "react-router-dom";
 import { SideNavBar } from "./containers";
 import { DiscoverPage, ComingSoonPage } from "./pages";
-import { theme } from "./theme";
+import { muiTheme, theme } from "./theme";
 import { GlobalCSS } from "./css/global.css";
 
 const App: React.FC = (props) => {
@@ -11,72 +12,74 @@ const App: React.FC = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalCSS />
-      <SideNavBar
-        {...props}
-        navMenuOpen={navMenuOpen}
-        setNavMenuOpen={setNavMenuOpen}
-      />
-      <ContentWrapper>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ComingSoonPage
-                {...props}
-                pageName="Main page"
-                setNavMenuOpen={setNavMenuOpen}
-              />
-            }
-          />
-          <Route
-            path="/discover"
-            element={
-              <DiscoverPage {...props} setNavMenuOpen={setNavMenuOpen} />
-            }
-          />
-          <Route
-            path="/saved/movies"
-            element={
-              <ComingSoonPage
-                {...props}
-                pageName="Saved movies"
-                setNavMenuOpen={setNavMenuOpen}
-              />
-            }
-          />
-          <Route
-            path="/saved/tv-shows"
-            element={
-              <ComingSoonPage
-                {...props}
-                pageName="Saved TV Shows"
-                setNavMenuOpen={setNavMenuOpen}
-              />
-            }
-          />
-          <Route
-            path="/watched/movies"
-            element={
-              <ComingSoonPage
-                {...props}
-                pageName="Watched movies"
-                setNavMenuOpen={setNavMenuOpen}
-              />
-            }
-          />
-          <Route
-            path="/watched/tv-shows"
-            element={
-              <ComingSoonPage
-                {...props}
-                pageName="Watched TV Shows"
-                setNavMenuOpen={setNavMenuOpen}
-              />
-            }
-          />
-        </Routes>
-      </ContentWrapper>
+      <MuiThemeProvider theme={muiTheme}>
+        <GlobalCSS />
+        <SideNavBar
+          {...props}
+          navMenuOpen={navMenuOpen}
+          setNavMenuOpen={setNavMenuOpen}
+        />
+        <ContentWrapper>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ComingSoonPage
+                  {...props}
+                  pageName="Main page"
+                  setNavMenuOpen={setNavMenuOpen}
+                />
+              }
+            />
+            <Route
+              path="/discover"
+              element={
+                <DiscoverPage {...props} setNavMenuOpen={setNavMenuOpen} />
+              }
+            />
+            <Route
+              path="/saved/movies"
+              element={
+                <ComingSoonPage
+                  {...props}
+                  pageName="Saved movies"
+                  setNavMenuOpen={setNavMenuOpen}
+                />
+              }
+            />
+            <Route
+              path="/saved/tv-shows"
+              element={
+                <ComingSoonPage
+                  {...props}
+                  pageName="Saved TV Shows"
+                  setNavMenuOpen={setNavMenuOpen}
+                />
+              }
+            />
+            <Route
+              path="/watched/movies"
+              element={
+                <ComingSoonPage
+                  {...props}
+                  pageName="Watched movies"
+                  setNavMenuOpen={setNavMenuOpen}
+                />
+              }
+            />
+            <Route
+              path="/watched/tv-shows"
+              element={
+                <ComingSoonPage
+                  {...props}
+                  pageName="Watched TV Shows"
+                  setNavMenuOpen={setNavMenuOpen}
+                />
+              }
+            />
+          </Routes>
+        </ContentWrapper>
+      </MuiThemeProvider>
     </ThemeProvider>
   );
 };
