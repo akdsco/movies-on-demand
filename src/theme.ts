@@ -20,6 +20,7 @@ export const theme = {
   },
   constants: {
     sidebarWidth: 260,
+    borderRadius: 3,
   },
   breakpoints: {
     sm: 600,

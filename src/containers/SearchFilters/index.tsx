@@ -46,6 +46,7 @@ export const SearchFilters: React.FC<SearchFilterPropsType> = ({
           iconSrc={SearchIcon}
         />
         <FiltersButton>
+          {/* Non functional, cutting scope due to time constraint */}
           <img className="internal-icon" src={FilterIcon} alt="" />
         </FiltersButton>
       </SearchFiltersCont>
@@ -64,7 +65,7 @@ const FiltersWrapper = styled.div`
 const SearchFiltersCont = styled.div<{ marginBottom?: boolean }>`
   background-color: white;
   padding: 20px;
-  border-radius: 3px;
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
   transition: all 0.3s ease-in-out;
   display: flex;
   justify-content: space-between;

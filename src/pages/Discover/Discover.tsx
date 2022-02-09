@@ -4,9 +4,14 @@ import {
   PageWrapper,
   PageMainSection,
   MobilePageTitle,
+  PageAside,
+  PageContentWrapper,
+  SearchBar,
 } from "../../components";
 import { MovieList, SearchFilters } from "../../containers";
 import { DiscoverPagePropsType } from "../../lib/domain";
+import SearchIcon from "../../images/search-icon-yellow.png";
+import YearDateIcon from "../../images/year-icon.png";
 // import * as fetcher from "../../fetcher";
 
 const initState: DiscoverPagePropsType = {
@@ -68,24 +73,57 @@ export const Discover: React.FC<{
   return (
     <PageWrapper>
       <MobilePageTitle title="Discover" setNavMenuOpen={setNavMenuOpen} />
-      <PageMainSection>
-        <MovieFilters>
-          <SearchFilters
-            keyword={keyword}
-            genres={genreOptions}
-            ratings={ratingOptions}
-            languages={languageOptions}
-            searchMovies={(keyword: string, year: string): void =>
-              searchMovies(keyword, year)
-            }
-            setDiscoverState={setDiscoverState}
-          />
-        </MovieFilters>
-        <MovieResults>
-          {totalCount >= 0 && <TotalCounter>{totalCount} movies</TotalCounter>}
-          <MovieList movies={results} genres={genreOptions || []} />
-        </MovieResults>
-      </PageMainSection>
+      <PageContentWrapper>
+        <PageMainSection>
+          <MovieFilters>
+            <SearchFilters
+              keyword={keyword}
+              genres={genreOptions}
+              ratings={ratingOptions}
+              languages={languageOptions}
+              searchMovies={(keyword: string, year: string): void =>
+                searchMovies(keyword, year)
+              }
+              setDiscoverState={setDiscoverState}
+            />
+          </MovieFilters>
+          <MovieResults>
+            {totalCount >= 0 && (
+              <TotalCounter>{totalCount} movies</TotalCounter>
+            )}
+            <MovieList movies={results} genres={genreOptions || []} />
+          </MovieResults>
+        </PageMainSection>
+        {/* PageAside does not render on mobile devices */}
+        <PageAside>
+          <AsideContainer>
+            <SearchBar
+              value={keyword}
+              placeholder="Search for movies"
+              onChange={(e) =>
+                setDiscoverState((state) => ({
+                  ...state,
+                  keyword: e.target.value,
+                }))
+              }
+              iconSrc={SearchIcon}
+            />
+            {/*TODO make year change functional*/}
+            <SearchBar
+              value={year}
+              placeholder="Year of release"
+              onChange={(e) =>
+                setDiscoverState((state) => ({
+                  ...state,
+                  year: Number(e.target.value),
+                }))
+              }
+              iconSrc={YearDateIcon}
+            />
+          </AsideContainer>
+          <AsideContainer>filters</AsideContainer>
+        </PageAside>
+      </PageContentWrapper>
     </PageWrapper>
   );
 };
@@ -93,10 +131,34 @@ export const Discover: React.FC<{
 const TotalCounter = styled.div`
   font-weight: 400;
   margin-bottom: 10px;
+  height: 20px;
 `;
 
-const MovieResults = styled.div`
-  margin-top: 40px;
+const MovieResults = styled.div``;
+
+const MovieFilters = styled.div`
+  margin-bottom: 40px;
+
+  @media only screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
+    display: none;
+  }
 `;
 
-const MovieFilters = styled.div``;
+const AsideContainer = styled.div`
+  padding: 20px;
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
+  background-color: ${({ theme }) => theme.palette.white};
+  margin-bottom: 10px;
+
+  .text-field-input-icon {
+    width: 20px;
+  }
+
+  & div:first-child {
+    margin-bottom: 5px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;

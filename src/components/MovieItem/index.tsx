@@ -38,7 +38,7 @@ export const MovieItem: React.FC<Movie> = ({
 const MovieItemWrapper = styled.div`
   position: relative;
   background-color: white;
-  border-radius: 3px;
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
   padding: 20px;
   display: flex;
 `;
@@ -94,7 +94,7 @@ const Score = styled.div`
   color: ${({ theme }) => theme.palette.white};
   font-weight: 900;
   font-size: 0.85em;
-  border-radius: 3px;
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
 `;
 
 const RightContBottom = styled.div``;

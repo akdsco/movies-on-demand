@@ -15,7 +15,7 @@ export const SearchBar: React.FC<{
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <img src={iconSrc} alt="" />
+              <img className="text-field-input-icon" src={iconSrc} alt="" />
             </InputAdornment>
           ),
         }}
