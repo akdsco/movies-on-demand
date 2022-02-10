@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import {
   DiscoverPagePropsType,
+  GenreObject,
   LanguageOptionsType,
   RatingOptionsType,
 } from "../../lib/domain";
@@ -16,7 +17,7 @@ import FilterIcon from "../../images/filter-icon.png";
 type SearchFilterPropsType = {
   //TODO adjust props type once you start implementing (setting string for now)
   keyword: string;
-  genres: string[];
+  genres: GenreObject[];
   ratings: RatingOptionsType[];
   languages: LanguageOptionsType[];
   searchMovies: (keyword: string, year: string) => void;

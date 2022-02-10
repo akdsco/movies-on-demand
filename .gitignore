@@ -17,6 +17,9 @@ node_modules/
 .history
 .ionide
 
+# The secrets (shush)
+.env
+
 # Misc
 .DS_Store
 /venv/

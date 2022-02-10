@@ -12,7 +12,7 @@ export const MovieItem: React.FC<Movie> = ({
   return (
     <MovieItemWrapper>
       <LeftCont>
-        <img src="http://placehold.jp/80x120.png" alt="" />
+        <img src={`https://image.tmdb.org/t/p/w92/${poster_path}`} alt="" />
       </LeftCont>
       <RightCont>
         <RightContTop>
@@ -24,7 +24,7 @@ export const MovieItem: React.FC<Movie> = ({
               ))}
             </Genres>
           </TitleAndGenreCont>
-          <Score>{vote_average}</Score>
+          <Score>{vote_average.toFixed(1)}</Score>
         </RightContTop>
         <RightContBottom>
           <MovieDesc>{overview}</MovieDesc>

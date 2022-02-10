@@ -7,7 +7,7 @@ export type DiscoverPagePropsType = {
   year: number;
   results: Movie[];
   totalCount: number;
-  genreOptions: string[];
+  genreOptions: GenreObject[];
   ratingOptions: RatingOptionsType[];
   languageOptions: LanguageOptionsType[];
 };
@@ -16,7 +16,9 @@ export type Movie = {
   id: string;
   original_title: string;
   vote_average: number;
-  genres: { id: number; name: string }[];
+  genres: GenreObject[];
   overview: string;
   poster_path: string;
 };
+
+export type GenreObject = { id: number; name: string };

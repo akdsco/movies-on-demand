@@ -10,9 +10,9 @@ import {
 } from "../../components";
 import { MovieList, SearchFilters } from "../../containers";
 import { DiscoverPagePropsType } from "../../lib/domain";
+import { getGenreList, getPopularMovies } from "../../fetcher";
 import SearchIcon from "../../images/search-icon-yellow.png";
 import YearDateIcon from "../../images/year-icon.png";
-// import * as fetcher from "../../fetcher";
 
 const initState: DiscoverPagePropsType = {
   keyword: "",
@@ -54,6 +54,7 @@ export const Discover: React.FC<{
   setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setNavMenuOpen }) => {
   const [discoverState, setDiscoverState] = React.useState(initState);
+  const [error, setError] = React.useState<string>("");
   const {
     genreOptions,
     languageOptions,
@@ -63,7 +64,25 @@ export const Discover: React.FC<{
     keyword,
     year,
   } = discoverState;
-  // TODO Write a function to preload the popular movies when page loads & get the movie genres
+
+  React.useEffect(() => {
+    getGenreList("/genre/movie/list").then(({ data }) => {
+      setDiscoverState((state) => ({ ...state, genreOptions: data.genres }));
+
+      getPopularMovies("/movie/popular")
+        .then(({ data }) => {
+          console.log("data", data);
+          setDiscoverState((state) => ({
+            ...state,
+            results: data.results,
+            totalCount: data.total_results,
+          }));
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
+    });
+  }, []);
 
   // TODO Write a function to trigger the API request and load the search results based on the keyword and year given as parameters
   const searchMovies = (keyword: string, year: string): void => {
@@ -87,12 +106,19 @@ export const Discover: React.FC<{
               setDiscoverState={setDiscoverState}
             />
           </MovieFilters>
-          <MovieResults>
-            {totalCount >= 0 && (
-              <TotalCounter>{totalCount} movies</TotalCounter>
-            )}
-            <MovieList movies={results} genres={genreOptions || []} />
-          </MovieResults>
+          {error ? (
+            <ErrorWrapper>
+              Sorry there was a "{error}" when trying to fetch movies, please
+              try again later.
+            </ErrorWrapper>
+          ) : (
+            <MovieResults>
+              {totalCount >= 0 && (
+                <TotalCounter>{totalCount} movies</TotalCounter>
+              )}
+              <MovieList movies={results} genres={genreOptions} />
+            </MovieResults>
+          )}
         </PageMainSection>
         {/* PageAside does not render on mobile devices */}
         <PageAside>
@@ -142,6 +168,15 @@ const MovieFilters = styled.div`
   @media only screen and (min-width: ${({ theme }) => theme.breakpoints.md}px) {
     display: none;
   }
+`;
+
+const ErrorWrapper = styled.div`
+  color: red;
+  padding: 20px;
+  margin-top: 30px;
+  text-align: center;
+  background: ${({ theme }) => theme.palette.white};
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
 `;
 
 const AsideContainer = styled.div`

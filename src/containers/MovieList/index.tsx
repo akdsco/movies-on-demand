@@ -1,18 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import { MovieItem } from "../../components";
-import { Movie } from "../../lib/domain";
+import { GenreObject, Movie } from "../../lib/domain";
 
 type MovieListPropsType = {
-  //TODO adjust props type once you start implementing (setting string for now)
   movies: Movie[];
-  genres: string[];
+  genres: GenreObject[];
 };
 
 export const MovieList: React.FC<MovieListPropsType> = ({ movies, genres }) => {
   return (
     <MoviesWrapper>
-      {movies.map((movie) => {
+      {movies.map((movie: any) => {
+        if (genres && movie.genre_ids) {
+          movie.genres = genres.filter((o1: { id: number; name: string }) =>
+            movie.genre_ids.some((o2: number) => o1.id === o2)
+          );
+        }
         return <MovieItem key={movie.id} {...movie} />;
       })}
     </MoviesWrapper>
