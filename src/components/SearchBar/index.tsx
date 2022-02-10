@@ -12,6 +12,7 @@ export const SearchBar: React.FC<{
     <StyledInput>
       <TextField
         placeholder={placeholder}
+        autoComplete="off"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

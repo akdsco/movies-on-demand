@@ -40,7 +40,11 @@ const MovieItemWrapper = styled.div`
   background-color: white;
   border-radius: ${({ theme }) => theme.constants.borderRadius}px;
   padding: 20px;
+  margin-bottom: 15px;
   display: flex;
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const LeftCont = styled.div`

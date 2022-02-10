@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   PageWrapper,
   PageMainSection,
@@ -17,22 +17,8 @@ import YearDateIcon from "../../images/year-icon.png";
 const initState: DiscoverPagePropsType = {
   keyword: "",
   year: 0,
-  results: [
-    {
-      id: "tt0137523",
-      original_title: "Fight Club",
-      vote_average: 8.4,
-      genres: [
-        { id: 1, name: "Drama" },
-        { id: 2, name: "Comedy" },
-        { id: 3, name: "Another" },
-      ],
-      overview:
-        'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.',
-      poster_path: "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
-    },
-  ],
-  totalCount: 1,
+  results: [],
+  totalCount: 0,
   genreOptions: [],
   ratingOptions: [
     { id: 7.5, name: 7.5 },
@@ -65,23 +51,27 @@ export const Discover: React.FC<{
     year,
   } = discoverState;
 
-  React.useEffect(() => {
-    getGenreList("/genre/movie/list").then(({ data }) => {
-      setDiscoverState((state) => ({ ...state, genreOptions: data.genres }));
+  const handleError = (error: ErrorEvent): void => {
+    setError(error.message);
+  };
 
-      getPopularMovies("/movie/popular")
-        .then(({ data }) => {
-          console.log("data", data);
-          setDiscoverState((state) => ({
-            ...state,
-            results: data.results,
-            totalCount: data.total_results,
-          }));
-        })
-        .catch((error) => {
-          setError(error.message);
-        });
-    });
+  React.useEffect(() => {
+    getGenreList("/genre/movie/list")
+      .then(({ data }) => {
+        setDiscoverState((state) => ({ ...state, genreOptions: data.genres }));
+
+        getPopularMovies("/movie/popular")
+          .then(({ data }) => {
+            console.log("data", data);
+            setDiscoverState((state) => ({
+              ...state,
+              results: data.results,
+              totalCount: data.total_results,
+            }));
+          })
+          .catch(handleError);
+      })
+      .catch(handleError);
   }, []);
 
   // TODO Write a function to trigger the API request and load the search results based on the keyword and year given as parameters
@@ -107,16 +97,20 @@ export const Discover: React.FC<{
             />
           </MovieFilters>
           {error ? (
-            <ErrorWrapper>
+            <ErrorMessage>
               Sorry there was a "{error}" when trying to fetch movies, please
               try again later.
-            </ErrorWrapper>
+            </ErrorMessage>
           ) : (
             <MovieResults>
-              {totalCount >= 0 && (
-                <TotalCounter>{totalCount} movies</TotalCounter>
+              {totalCount > 0 ? (
+                <>
+                  <TotalCounter>{totalCount} movies</TotalCounter>
+                  <MovieList movies={results} genres={genreOptions} />
+                </>
+              ) : (
+                <MessageWrapper>No records found</MessageWrapper>
               )}
-              <MovieList movies={results} genres={genreOptions} />
             </MovieResults>
           )}
         </PageMainSection>
@@ -147,12 +141,18 @@ export const Discover: React.FC<{
               iconSrc={YearDateIcon}
             />
           </AsideContainer>
-          <AsideContainer>filters</AsideContainer>
+          <AsideContainer>Filters coming soon</AsideContainer>
         </PageAside>
       </PageContentWrapper>
     </PageWrapper>
   );
 };
+
+const PageItemCss = css`
+  padding: 20px;
+  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
+  background: ${({ theme }) => theme.palette.white};
+`;
 
 const TotalCounter = styled.div`
   font-weight: 400;
@@ -170,19 +170,18 @@ const MovieFilters = styled.div`
   }
 `;
 
-const ErrorWrapper = styled.div`
-  color: red;
-  padding: 20px;
+const MessageWrapper = styled.div`
+  ${PageItemCss};
   margin-top: 30px;
   text-align: center;
-  background: ${({ theme }) => theme.palette.white};
-  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
+`;
+
+const ErrorMessage = styled(MessageWrapper)`
+  color: red;
 `;
 
 const AsideContainer = styled.div`
-  padding: 20px;
-  border-radius: ${({ theme }) => theme.constants.borderRadius}px;
-  background-color: ${({ theme }) => theme.palette.white};
+  ${PageItemCss};
   margin-bottom: 10px;
 
   .text-field-input-icon {
