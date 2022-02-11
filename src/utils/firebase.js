@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBbjlslxy_rplj3giez7kEiDgF59WZWGg0",
+  apiKey: process.env.REACT_APP_FB_API_KEY,
   authDomain: "akds-portfolio.firebaseapp.com",
   databaseURL: "https://akds-portfolio.firebaseio.com",
   projectId: "akds-portfolio",
