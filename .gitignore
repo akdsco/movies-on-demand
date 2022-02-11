@@ -1,5 +1,9 @@
 # General
 node_modules/
+build/
+
+### Firebase
+.firebase/
 
 ### JetBrains
 .idea/
