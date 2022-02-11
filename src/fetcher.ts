@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
-const ACCESS_TOKEN = process.env.REACT_APP_MOVIE_DB_READ_ACCESS_TOKEN;
+const ACCESS_TOKEN = process.env.REACT_APP_MOVIE_API_ACCESS_TOKEN;
 const axiosConfig = {
   headers: { Authorization: `Bearer <<${ACCESS_TOKEN}>>` },
 };
