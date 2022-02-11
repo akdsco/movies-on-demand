@@ -9,14 +9,18 @@ import {
   SearchBar,
 } from "../../components";
 import { MovieList, SearchFilters } from "../../containers";
-import { DiscoverPagePropsType } from "../../lib/domain";
-import { getGenreList, getPopularMovies } from "../../fetcher";
+import { DiscoverPagePropsType, Movie, SearchMovies } from "../../lib/domain";
+import {
+  getMoviesWithSearch,
+  getGenreList,
+  getPopularMovies,
+} from "../../fetcher";
 import SearchIcon from "../../images/search-icon-yellow.png";
 import YearDateIcon from "../../images/year-icon.png";
 
 const initState: DiscoverPagePropsType = {
   keyword: "",
-  year: 0,
+  year: 2020,
   results: [],
   totalCount: 0,
   genreOptions: [],
@@ -55,6 +59,15 @@ export const Discover: React.FC<{
     setError(error.message);
   };
 
+  const handleMovieSaveToState = (movies: Movie[], total: number): void => {
+    console.debug("Movies found: ", movies);
+    setDiscoverState((state) => ({
+      ...state,
+      results: movies,
+      totalCount: total,
+    }));
+  };
+
   React.useEffect(() => {
     getGenreList("/genre/movie/list")
       .then(({ data }) => {
@@ -62,21 +75,27 @@ export const Discover: React.FC<{
 
         getPopularMovies("/movie/popular")
           .then(({ data }) => {
-            console.log("data", data);
-            setDiscoverState((state) => ({
-              ...state,
-              results: data.results,
-              totalCount: data.total_results,
-            }));
+            handleMovieSaveToState(data.results, data.total_results);
           })
           .catch(handleError);
       })
       .catch(handleError);
   }, []);
 
-  // TODO Write a function to trigger the API request and load the search results based on the keyword and year given as parameters
-  const searchMovies = (keyword: string, year: string): void => {
-    console.log(keyword, year);
+  const searchMovies: SearchMovies = (keyword, year) => {
+    if (keyword) {
+      getMoviesWithSearch(keyword, year)
+        .then(({ data }) => {
+          handleMovieSaveToState(data.results, data.total_results);
+        })
+        .catch(handleError);
+    } else {
+      getPopularMovies("/movie/popular")
+        .then(({ data }) => {
+          handleMovieSaveToState(data.results, data.total_results);
+        })
+        .catch(handleError);
+    }
   };
 
   return (
@@ -87,12 +106,11 @@ export const Discover: React.FC<{
           <MovieFilters>
             <SearchFilters
               keyword={keyword}
+              year={year}
               genres={genreOptions}
               ratings={ratingOptions}
               languages={languageOptions}
-              searchMovies={(keyword: string, year: string): void =>
-                searchMovies(keyword, year)
-              }
+              searchMovies={searchMovies}
               setDiscoverState={setDiscoverState}
             />
           </MovieFilters>
@@ -120,24 +138,25 @@ export const Discover: React.FC<{
             <SearchBar
               value={keyword}
               placeholder="Search for movies"
-              onChange={(e) =>
+              onChange={(e) => {
                 setDiscoverState((state) => ({
                   ...state,
                   keyword: e.target.value,
-                }))
-              }
+                }));
+                searchMovies(e.target.value, year);
+              }}
               iconSrc={SearchIcon}
             />
-            {/*TODO make year change functional*/}
             <SearchBar
               value={year}
               placeholder="Year of release"
-              onChange={(e) =>
+              onChange={(e) => {
                 setDiscoverState((state) => ({
                   ...state,
                   year: Number(e.target.value),
-                }))
-              }
+                }));
+                searchMovies(keyword, Number(e.target.value));
+              }}
               iconSrc={YearDateIcon}
             />
           </AsideContainer>

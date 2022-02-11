@@ -22,3 +22,4 @@ export type Movie = {
 };
 
 export type GenreObject = { id: number; name: string };
+export type SearchMovies = (keyword: string, year: number) => void;

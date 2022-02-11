@@ -5,6 +5,7 @@ import {
   GenreObject,
   LanguageOptionsType,
   RatingOptionsType,
+  SearchMovies,
 } from "../../lib/domain";
 import { SearchBar } from "../../components";
 // import * as colors from "../../colors";
@@ -15,17 +16,18 @@ import FilterIcon from "../../images/filter-icon.png";
 // import CalendarIcon from "../../images/year-icon.png";
 
 type SearchFilterPropsType = {
-  //TODO adjust props type once you start implementing (setting string for now)
   keyword: string;
+  year: number;
   genres: GenreObject[];
   ratings: RatingOptionsType[];
   languages: LanguageOptionsType[];
-  searchMovies: (keyword: string, year: string) => void;
+  searchMovies: SearchMovies;
   setDiscoverState: React.Dispatch<React.SetStateAction<DiscoverPagePropsType>>;
 };
 
 export const SearchFilters: React.FC<SearchFilterPropsType> = ({
   keyword,
+  year,
   genres,
   ratings,
   languages,
@@ -38,12 +40,13 @@ export const SearchFilters: React.FC<SearchFilterPropsType> = ({
         <SearchBar
           value={keyword}
           placeholder="Search for movies"
-          onChange={(e) =>
+          onChange={(e) => {
             setDiscoverState((state) => ({
               ...state,
               keyword: e.target.value,
-            }))
-          }
+            }));
+            searchMovies(e.target.value, year);
+          }}
           iconSrc={SearchIcon}
         />
         <FiltersButton>
@@ -51,6 +54,7 @@ export const SearchFilters: React.FC<SearchFilterPropsType> = ({
           <img className="internal-icon" src={FilterIcon} alt="" />
         </FiltersButton>
       </SearchFiltersCont>
+      {/* Non functional, cutting scope due to time constraint */}
       {/*  /!*TODO Implement a component called "ExpandableFilter" and apply it to all filter categories *!/*/}
       {/*<SearchFiltersCont className="movies">*/}
       {/*  <CategoryTitle>Movies</CategoryTitle>*/}

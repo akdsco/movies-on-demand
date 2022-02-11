@@ -12,11 +12,7 @@ export const getGenreList = (endpoint: string): Promise<any> => {
     axios
       .get(url, axiosConfig)
       .then((response) => {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
+        console.debug("API data response: ", response);
         resolve(response);
       })
       .catch((e) => reject(e));
@@ -25,16 +21,27 @@ export const getGenreList = (endpoint: string): Promise<any> => {
 
 export const getPopularMovies = (endpoint: string): Promise<any> => {
   const url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}`;
-  // console.log("Request url: ", url);
   return new Promise((resolve, reject) => {
     axios
       .get(url, axiosConfig)
       .then((response) => {
-        // console.log(response.data);
-        // console.log(response.status);
-        // console.log(response.statusText);
-        // console.log(response.headers);
-        // console.log(response.config);
+        console.debug("API data response: ", response);
+        resolve(response);
+      })
+      .catch((e) => reject(e));
+  });
+};
+
+export const getMoviesWithSearch = (
+  keyword: string,
+  year: number
+): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=1&year=${year}&query=${keyword}`;
+    axios
+      .get(url, axiosConfig)
+      .then((response) => {
+        console.debug("API data response: ", response);
         resolve(response);
       })
       .catch((e) => reject(e));
