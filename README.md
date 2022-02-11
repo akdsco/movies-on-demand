@@ -1,5 +1,7 @@
 ## This is movies on demand!
 
+To view and use the app, go [here](https://movies-on-demand.web.app/discover)
+
 To run it locally, follow these steps:
 - Install latest [node](https://nodejs.org/en/)
 - Go to root of this project and install all dependencies with `npm i` command
