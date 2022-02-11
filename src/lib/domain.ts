@@ -19,6 +19,7 @@ export type Movie = {
   genres: GenreObject[];
   overview: string;
   poster_path: string;
+  release_date: string;
 };
 
 export type GenreObject = { id: number; name: string };

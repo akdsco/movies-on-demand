@@ -8,6 +8,7 @@ export const MovieItem: React.FC<Movie> = ({
   overview,
   poster_path,
   vote_average,
+  release_date,
 }) => {
   return (
     <MovieItemWrapper>
@@ -28,7 +29,7 @@ export const MovieItem: React.FC<Movie> = ({
         </RightContTop>
         <RightContBottom>
           <MovieDesc>{overview}</MovieDesc>
-          <Date>20-02-2022</Date>
+          <Date>{release_date}</Date>
         </RightContBottom>
       </RightCont>
     </MovieItemWrapper>
