@@ -73,11 +73,11 @@ export const Discover: React.FC<{
   };
 
   React.useEffect(() => {
-    getGenreList("/genre/movie/list")
+    getGenreList()
       .then(({ data }) => {
         setDiscoverState((state) => ({ ...state, genreOptions: data.genres }));
 
-        getPopularMovies("/movie/popular")
+        getPopularMovies()
           .then(({ data }) => {
             handleMovieSaveToState(data.results, data.total_results);
           })
@@ -94,7 +94,7 @@ export const Discover: React.FC<{
         })
         .catch(handleError);
     } else {
-      getPopularMovies("/movie/popular")
+      getPopularMovies()
         .then(({ data }) => {
           handleMovieSaveToState(data.results, data.total_results);
         })

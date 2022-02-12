@@ -1,16 +1,15 @@
 import axios from "axios";
 
-const API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
-const ACCESS_TOKEN = process.env.REACT_APP_MOVIE_API_ACCESS_TOKEN;
-const axiosConfig = {
-  headers: { Authorization: `Bearer <<${ACCESS_TOKEN}>>` },
+const MOVIE_DB_API_KEY = process.env.REACT_APP_MOVIE_API_KEY;
+const MOVIE_DB_ACCESS_TOKEN = process.env.REACT_APP_MOVIE_API_ACCESS_TOKEN;
+const axiosMovieDBConfig = {
+  headers: { Authorization: `Bearer <<${MOVIE_DB_ACCESS_TOKEN}>>` },
 };
 
-export const getGenreList = (endpoint: string): Promise<any> => {
-  const url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}&language=en-US`;
+const movieDbApiCall = (url: string) => {
   return new Promise((resolve, reject) => {
     axios
-      .get(url, axiosConfig)
+      .get(url, axiosMovieDBConfig)
       .then((response) => {
         console.debug("API data response: ", response);
         resolve(response);
@@ -19,31 +18,22 @@ export const getGenreList = (endpoint: string): Promise<any> => {
   });
 };
 
-export const getPopularMovies = (endpoint: string): Promise<any> => {
-  const url = `https://api.themoviedb.org/3${endpoint}?api_key=${API_KEY}`;
-  return new Promise((resolve, reject) => {
-    axios
-      .get(url, axiosConfig)
-      .then((response) => {
-        console.debug("API data response: ", response);
-        resolve(response);
-      })
-      .catch((e) => reject(e));
-  });
+const movieDBApiDomain = "https://api.themoviedb.org/3";
+
+export const getGenreList = (): Promise<any> => {
+  const url = `${movieDBApiDomain}/genre/movie/list?api_key=${MOVIE_DB_API_KEY}&language=en-US`;
+  return movieDbApiCall(url);
+};
+
+export const getPopularMovies = (): Promise<any> => {
+  const url = `${movieDBApiDomain}/movie/popular?api_key=${MOVIE_DB_API_KEY}`;
+  return movieDbApiCall(url);
 };
 
 export const getMoviesWithSearch = (
   keyword: string,
   year: number
 ): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=1&year=${year}&query=${keyword}`;
-    axios
-      .get(url, axiosConfig)
-      .then((response) => {
-        console.debug("API data response: ", response);
-        resolve(response);
-      })
-      .catch((e) => reject(e));
-  });
+  const url = `${movieDBApiDomain}/search/movie?api_key=${MOVIE_DB_API_KEY}&page=1&year=${year}&query=${keyword}`;
+  return movieDbApiCall(url);
 };
