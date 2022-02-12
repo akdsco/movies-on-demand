@@ -7,6 +7,7 @@ import {
   PageAside,
   PageContentWrapper,
   SearchBar,
+  Loader,
 } from "../../components";
 import { MovieList, SearchFilters } from "../../containers";
 import { DiscoverPagePropsType, Movie, SearchMovies } from "../../lib/domain";
@@ -43,6 +44,7 @@ const initState: DiscoverPagePropsType = {
 export const Discover: React.FC<{
   setNavMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setNavMenuOpen }) => {
+  const [loading, setLoading] = React.useState(true);
   const [discoverState, setDiscoverState] = React.useState(initState);
   const [error, setError] = React.useState<string>("");
   const {
@@ -57,6 +59,7 @@ export const Discover: React.FC<{
 
   const handleError = (error: ErrorEvent): void => {
     setError(error.message);
+    setLoading(false);
   };
 
   const handleMovieSaveToState = (movies: Movie[], total: number): void => {
@@ -66,6 +69,7 @@ export const Discover: React.FC<{
       results: movies,
       totalCount: total,
     }));
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -121,7 +125,11 @@ export const Discover: React.FC<{
             </ErrorMessage>
           ) : (
             <MovieResults>
-              {totalCount > 0 ? (
+              {loading ? (
+                <MessageWrapper>
+                  <Loader />
+                </MessageWrapper>
+              ) : totalCount > 0 ? (
                 <>
                   <TotalCounter>{totalCount} movies</TotalCounter>
                   <MovieList movies={results} genres={genreOptions} />
